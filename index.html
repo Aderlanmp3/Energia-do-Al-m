@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sunshine - Energia do Além</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;500;700&display=swap');
+
     :root {
       --roxo-escuro: #1c1b2e;
       --roxo-claro: #2e2d49;
@@ -18,7 +20,7 @@
 
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Lexend', sans-serif;
       background: linear-gradient(to bottom, var(--roxo-escuro), var(--roxo-claro));
       color: #eee;
       overflow-x: hidden;
@@ -35,13 +37,15 @@
     .hero h1 {
       font-size: 2.8rem;
       color: var(--destaque);
+      font-weight: 700;
     }
 
     .hero p {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       color: #ccc;
       max-width: 500px;
       margin: 10px auto;
+      font-weight: 300;
     }
 
     .btn {
@@ -53,11 +57,13 @@
       cursor: pointer;
       border-radius: 10px;
       font-size: 1rem;
-      transition: background 0.3s;
+      font-weight: 500;
+      transition: background 0.3s, transform 0.2s;
     }
 
     .btn:hover {
       background-color: #473ebe;
+      transform: scale(1.03);
     }
 
     .floating-btns {
@@ -95,55 +101,52 @@
       text-align: center;
     }
 
-    .modal-content ul {
-      text-align: left;
-      padding-left: 20px;
-    }
-
-    #canvas-mistico {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    select, form {
-      width: 100%;
-      max-width: 400px;
-      margin: auto;
-    }
-
-    select {
+    .modal-content h2 {
+      font-weight: 600;
       margin-bottom: 10px;
-      padding: 8px;
-      border-radius: 8px;
-      border: none;
+      color: var(--destaque);
+    }
+
+    .modal-content p,
+    .modal-content li,
+    .modal-content td {
+      font-weight: 300;
       font-size: 1rem;
     }
 
-    @media (max-width: 600px) {
-      .hero h1 {
-        font-size: 2rem;
-      }
-
-      .hero p {
-        font-size: 1rem;
-      }
-
-      .btn {
-        padding: 10px;
-        font-size: 0.9rem;
-      }
-
-      .floating-btns {
-        top: auto;
-        bottom: 20px;
-        right: 20px;
-      }
+    .modal-content ul {
+      text-align: left;
+      padding-left: 20px;
+      margin: 0;
     }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    table td, table th {
+      padding: 8px 5px;
+    }
+
+    #canvas-mistico {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+
+  background-repeat: no-repeat;
+background-size: cover;
+background-position: center;
+
+  opacity: 0.4; /* suaviza as partículas */
+  filter: blur(1px); /* deixa o fundo mais etéreo */
+}
+
   </style>
 </head>
 <body>
@@ -163,7 +166,6 @@
   <button class="btn" onclick="abrirModal('quiz')">Quiz Astral</button>
 </div>
 
-<!-- Modais -->
 <div id="origem" class="modal">
   <div class="modal-content">
     <h2>Origem Sagrada</h2>
@@ -176,10 +178,10 @@
   <div class="modal-content">
     <h2>Sabores Reais</h2>
     <ul>
-      <li><strong>Solaris</strong> – Manga, hibisco e gengibre</li>
-      <li><strong>Tempestade Boreal</strong> – Limão, hortelã e spirulina</li>
-      <li><strong>Violeta Lunar</strong> – Uva, lavanda e chá verde</li>
-      <li><strong>Raiz de Fênix</strong> – Guaraná, beterraba e canela</li>
+      <li><strong>Solaris</strong> – Manga e laranja</li>
+      <li><strong>Tempestade Boreal</strong> – Limão, hortelã e Maçã Verde</li>
+      <li><strong>Violeta Lunar</strong> – Uva e chá verde</li>
+      <li><strong>Raiz de Fênix</strong> – Guaraná e canela</li>
     </ul>
     <button class="btn" onclick="fecharModal('sabores')">Fechar</button>
   </div>
@@ -202,7 +204,7 @@
 <div id="ingredientes" class="modal">
   <div class="modal-content">
     <h2>Ingredientes Mágicos vs. Reais</h2>
-    <table style="width:100%; text-align:left;">
+    <table>
       <tr><th>Mágico</th><th>Real</th></tr>
       <tr><td>Luz Líquida</td><td>Vitamina C</td></tr>
       <tr><td>Taurina Sagrada</td><td>Taurina</td></tr>
@@ -278,7 +280,6 @@
 </script>
 
 <script>
-  // Partículas de fundo
   const canvas = document.getElementById('canvas-mistico');
   const ctx = canvas.getContext('2d');
   let particles = [];
