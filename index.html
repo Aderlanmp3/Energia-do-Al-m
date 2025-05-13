@@ -1,67 +1,63 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sunshine - Energia do Além</title>
   <style>
     :root {
-      --bg-dark: #1c1b2e;
-      --bg-medium: #282744;
-      --accent: #ffe35e;
-      --primary: #5a4fcf;
-      --text-light: #eee;
-      --text-muted: #ccc;
+      --roxo-escuro: #1c1b2e;
+      --roxo-claro: #2e2d49;
+      --destaque: #ffe35e;
+      --botao: #5a4fcf;
     }
 
     * {
-      margin: 0;
-      padding: 0;
       box-sizing: border-box;
     }
 
     body {
+      margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to bottom, var(--bg-dark), #2e2d49);
-      color: var(--text-light);
+      background: linear-gradient(to bottom, var(--roxo-escuro), var(--roxo-claro));
+      color: #eee;
       overflow-x: hidden;
     }
 
     .hero {
       text-align: center;
-      padding: 100px 20px;
-      background-color: var(--bg-medium);
+      padding: 80px 20px;
+      background-color: #282744;
       position: relative;
       z-index: 1;
     }
 
     .hero h1 {
-      font-size: 3.5rem;
-      color: var(--accent);
-      letter-spacing: 2px;
+      font-size: 2.8rem;
+      color: var(--destaque);
     }
 
     .hero p {
-      font-size: 1.2rem;
-      color: var(--text-muted);
-      margin-top: 10px;
+      font-size: 1.1rem;
+      color: #ccc;
+      max-width: 500px;
+      margin: 10px auto;
     }
 
     .btn {
-      background-color: var(--primary);
+      background-color: var(--botao);
       color: white;
       padding: 12px 24px;
-      margin-top: 25px;
+      margin-top: 20px;
       border: none;
-      border-radius: 12px;
+      cursor: pointer;
+      border-radius: 10px;
       font-size: 1rem;
-      transition: 0.3s;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: background 0.3s;
     }
 
     .btn:hover {
-      background-color: #473fc0;
-      transform: scale(1.05);
+      background-color: #473ebe;
     }
 
     .floating-btns {
@@ -90,41 +86,18 @@
 
     .modal-content {
       background-color: #22213a;
-      padding: 30px;
-      border-radius: 20px;
-      max-width: 600px;
+      padding: 25px;
+      border-radius: 15px;
+      max-width: 500px;
       width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
       text-align: center;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-    }
-
-    .modal-content h2 {
-      margin-bottom: 20px;
-      color: var(--accent);
     }
 
     .modal-content ul {
-      list-style-type: none;
-      padding-left: 0;
-    }
-
-    .modal-content ul li {
-      margin-bottom: 10px;
-      font-size: 1rem;
-    }
-
-    select {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border-radius: 10px;
-      border: none;
-      font-size: 1rem;
-    }
-
-    #resultadoQuiz {
-      font-size: 1.1rem;
-      color: var(--text-muted);
+      text-align: left;
+      padding-left: 20px;
     }
 
     #canvas-mistico {
@@ -136,6 +109,41 @@
       z-index: 0;
       pointer-events: none;
     }
+
+    select, form {
+      width: 100%;
+      max-width: 400px;
+      margin: auto;
+    }
+
+    select {
+      margin-bottom: 10px;
+      padding: 8px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .btn {
+        padding: 10px;
+        font-size: 0.9rem;
+      }
+
+      .floating-btns {
+        top: auto;
+        bottom: 20px;
+        right: 20px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -143,22 +151,23 @@
 <canvas id="canvas-mistico"></canvas>
 
 <section class="hero">
-  <h1>Energia do Além</h1>
+  <h1>Sunshine</h1>
   <p>Mais que energia: um portal para o místico</p>
   <button class="btn" onclick="abrirModal('origem')">Descubra a Origem</button>
 </section>
 
 <div class="floating-btns">
-  <button class="btn" onclick="abrirModal('sabores')">Sabores Reais</button>
-  <button class="btn" onclick="abrirModal('nutricao')">Info Energética</button>
-  <button class="btn" onclick="abrirModal('ingredientes')">Mágicos vs. Reais</button>
+  <button class="btn" onclick="abrirModal('sabores')">Sabores</button>
+  <button class="btn" onclick="abrirModal('nutricao')">Nutrição</button>
+  <button class="btn" onclick="abrirModal('ingredientes')">Ingredientes</button>
   <button class="btn" onclick="abrirModal('quiz')">Quiz Astral</button>
 </div>
 
+<!-- Modais -->
 <div id="origem" class="modal">
   <div class="modal-content">
-    <h2>A Origem Sagrada</h2>
-    <p>Sunshine nasceu em um eclipse solar, onde alquimistas modernos fundiram luz e sombra para criar a fórmula da energia vital. Cada gole carrega séculos de sabedoria arcana.</p>
+    <h2>Origem Sagrada</h2>
+    <p>Sunshine nasceu em um eclipse solar, onde alquimistas modernos fundiram luz e sombra para criar a fórmula da energia vital.</p>
     <button class="btn" onclick="fecharModal('origem')">Fechar</button>
   </div>
 </div>
@@ -167,11 +176,10 @@
   <div class="modal-content">
     <h2>Sabores Reais</h2>
     <ul>
-      <li><strong>Laranja com Gengibre</strong> – Refrescância com leve picância</li>
-      <li><strong>Frutas Tropicais</strong> – Sabor vibrante e ensolarado</li>
-      <li><strong>Maçã Verde</strong> – Refrescante e ácido na medida</li>
-      <li><strong>Limão com Chá Verde</strong> – Equilíbrio entre herbal e cítrico</li>
-      <li><strong>Melancia</strong> – Doce e suculenta como o verão</li>
+      <li><strong>Solaris</strong> – Manga, hibisco e gengibre</li>
+      <li><strong>Tempestade Boreal</strong> – Limão, hortelã e spirulina</li>
+      <li><strong>Violeta Lunar</strong> – Uva, lavanda e chá verde</li>
+      <li><strong>Raiz de Fênix</strong> – Guaraná, beterraba e canela</li>
     </ul>
     <button class="btn" onclick="fecharModal('sabores')">Fechar</button>
   </div>
@@ -179,15 +187,14 @@
 
 <div id="nutricao" class="modal">
   <div class="modal-content">
-    <h2>Informação Energética Real</h2>
+    <h2>Informação Nutricional</h2>
     <ul>
-      <li><strong>Valor energético:</strong> 110 kcal por lata (269 ml)</li>
-      <li><strong>Carboidratos:</strong> 27g</li>
-      <li><strong>Açúcares:</strong> 25g</li>
-      <li><strong>Cafeína:</strong> 75mg</li>
-      <li><strong>Vitaminas:</strong> B3, B6 e B12</li>
+      <li><strong>Energia:</strong> 52 kcal por 100ml</li>
+      <li><strong>Carboidratos:</strong> 13g</li>
+      <li><strong>Açúcares:</strong> 11g</li>
+      <li><strong>Vitamina C:</strong> 90mg</li>
+      <li><strong>Cafeína:</strong> 80mg</li>
     </ul>
-    <p><em>Valores aproximados com base em análises laboratoriais convencionais.</em></p>
     <button class="btn" onclick="fecharModal('nutricao')">Fechar</button>
   </div>
 </div>
@@ -195,27 +202,12 @@
 <div id="ingredientes" class="modal">
   <div class="modal-content">
     <h2>Ingredientes Mágicos vs. Reais</h2>
-    <table style="width: 100%; color: white; text-align: left; border-spacing: 10px;">
-      <tr>
-        <th>Mágico</th>
-        <th>Real</th>
-      </tr>
-      <tr>
-        <td>Luz líquida do Sol</td>
-        <td>Vitamina B12</td>
-      </tr>
-      <tr>
-        <td>Essência de guaraná etérea</td>
-        <td>Extrato natural de guaraná</td>
-      </tr>
-      <tr>
-        <td>Névoa de menta astral</td>
-        <td>Aroma natural de menta</td>
-      </tr>
-      <tr>
-        <td>Taurina sagrada</td>
-        <td>Taurina</td>
-      </tr>
+    <table style="width:100%; text-align:left;">
+      <tr><th>Mágico</th><th>Real</th></tr>
+      <tr><td>Luz Líquida</td><td>Vitamina C</td></tr>
+      <tr><td>Taurina Sagrada</td><td>Taurina</td></tr>
+      <tr><td>Névoa de Menta Etérea</td><td>Extrato de Hortelã</td></tr>
+      <tr><td>Elixir Solar</td><td>Suco de manga com chá de hibisco</td></tr>
     </table>
     <button class="btn" onclick="fecharModal('ingredientes')">Fechar</button>
   </div>
@@ -246,7 +238,7 @@
         <option>Paz interior</option>
         <option>Transformação</option>
       </select>
-      <br /><br />
+      <br><br>
       <button class="btn" type="submit">Descobrir Meu Sabor</button>
     </form>
     <div id="resultadoQuiz" style="margin-top: 20px;"></div>
@@ -257,10 +249,12 @@
 <script>
   function abrirModal(id) {
     document.getElementById(id).style.display = 'flex';
+    document.body.style.overflow = 'hidden';
   }
 
   function fecharModal(id) {
     document.getElementById(id).style.display = 'none';
+    document.body.style.overflow = '';
   }
 
   document.getElementById('quizForm').addEventListener('submit', function (e) {
@@ -269,17 +263,14 @@
     const busca = this.busca.value;
 
     let resposta = '';
-
     if (elemento === 'Fogo' || busca === 'Força') {
-      resposta = '🔥 Você combina com <strong>Laranja com Gengibre</strong> – energia intensa e picância marcante.';
+      resposta = '🔥 Você é Solaris! Ardente e cheio de energia vital.';
     } else if (elemento === 'Água' || busca === 'Paz interior') {
-      resposta = '🌊 Seu sabor é <strong>Limão com Chá Verde</strong> – equilíbrio herbal para a alma.';
+      resposta = '💧 Você é Violeta Lunar. Sereno, profundo e equilibrado.';
     } else if (elemento === 'Ar' || busca === 'Clareza mental') {
-      resposta = '🌪️ Você é <strong>Maçã Verde</strong> – refrescante, direto e esperto.';
-    } else if (elemento === 'Terra' || busca === 'Transformação') {
-      resposta = '🌱 Seu sabor é <strong>Frutas Tropicais</strong> – versátil e cheio de vida.';
+      resposta = '🌬️ Você é Tempestade Boreal! Refrescante e leve como o vento.';
     } else {
-      resposta = '🍉 Você vibra na frequência da <strong>Melancia</strong> – doce, livre e cheio de encanto.';
+      resposta = '🌿 Você é Raiz de Fênix, a força ancestral da terra.';
     }
 
     document.getElementById('resultadoQuiz').innerHTML = `<strong>Resultado:</strong> ${resposta}`;
@@ -287,13 +278,15 @@
 </script>
 
 <script>
-  // Efeito de partículas
+  // Partículas de fundo
   const canvas = document.getElementById('canvas-mistico');
   const ctx = canvas.getContext('2d');
   let particles = [];
 
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  function ajustarCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
 
   class Particle {
     constructor() {
@@ -337,11 +330,11 @@
   }
 
   window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    ajustarCanvas();
     initParticles();
   });
 
+  ajustarCanvas();
   initParticles();
   animateParticles();
 </script>
